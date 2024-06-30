@@ -8,7 +8,8 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    OrderFormComponent
+    OrderFormComponent,
+
   ],
   imports: [
     CommonModule,

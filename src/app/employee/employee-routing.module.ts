@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: 'merchant/:id' , component: MerchantFormComponent },
   // ----------------------------------------------------------- //
   { path: 'employee' , component: EmployeeListComponent },
+  { path: 'employee/new', component: EmployeeFormComponent },
   { path: 'employee/:id' , component: EmployeeFormComponent },
   // ----------------------------------------------------------- //
   { path: 'permission' , component: PermissionListComponent },
