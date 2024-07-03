@@ -65,12 +65,15 @@
         </div>
 
         <div class="col col-sm-12 col-md-4 mb-3">
-          <label for="address" class="form-label">العنوان</label>
-          <input type="text" id="address" class="form-control" formControlName="address">
-          <div *ngIf="merchantForm.get('address')?.invalid && (merchantForm.get('address')?.dirty || merchantForm.get('address')?.touched)" class="text-danger">
-            <div *ngIf="merchantForm.get('address')?.errors?.['required']">يجب ادخال العنوان</div>
+          <label for="branchName" class="form-label">الفرع</label>
+          <select id="branchName" class="form-select" formControlName="branchName">
+              <option value="" selected>اختر الفرع</option>
+              <option *ngFor="let branch of branches" [value]="branch.name">{{ branch.name }}</option>
+          </select>
+          <div *ngIf="merchantForm.get('branchName')?.invalid && (merchantForm.get('branchName')?.dirty || merchantForm.get('branchName')?.touched)" class="text-danger">
+              <div *ngIf="merchantForm.get('branchName')?.errors?.['required']">يجب ادخال الفرع</div>
           </div>
-        </div>
+      </div>
 
         <div class="col col-sm-12 col-md-4 mb-3">
           <label for="pickUpSpecialCost" class="form-label">سعر pick up</label>

@@ -21,10 +21,10 @@ loading : boolean = false;
   ngOnInit(): void {
     this.loading = true;
     this.merchantService.getAllMerchants().subscribe({
-      next:(res)=>{
+      next:(res:any)=>{
         console.log(res);
        // this.merchants=res
-       this.merchants=res;
+       this.merchants=res.$values;
        this.loading = false;
       },
       error:(err)=>{
