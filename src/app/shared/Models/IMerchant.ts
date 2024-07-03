@@ -13,4 +13,14 @@ export interface IMerchantDTO {
   city: string;
   pickUpSpecialCost: number;
   refusedOrderPercent: number;
+  specialCitiesPrices:{
+    $id: string;
+    $values: ISpecialPrice[];
+  }
+}
+export interface ISpecialPrice{
+  id?: number;
+  government: string;
+  city: string;
+  price: number;
 }

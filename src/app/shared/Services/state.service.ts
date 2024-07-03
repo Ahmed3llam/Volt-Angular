@@ -9,7 +9,7 @@ import { IState } from '../Models/IState';
 })
 export class StateService {
 
-  private baseUrl = 'http://localhost:5247/api/Government';
+  private baseUrl = 'http://localhost:37667/api/Government';
 
   constructor(private http: HttpClient) {}
 

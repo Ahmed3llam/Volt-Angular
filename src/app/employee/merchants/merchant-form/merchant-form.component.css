@@ -13,3 +13,20 @@
   color: #fff;
   background-color: #D83520;
 }
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.submit {
+  color: black;
+  border: 1px solid #898787;
+  cursor: pointer;
+}
+
+.cancel {
+  color: black;
+  border: 1px solid #D83520;
+  cursor: pointer;
+}
