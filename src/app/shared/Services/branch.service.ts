@@ -8,7 +8,7 @@ import { getAllBranch, Branch } from '../Models/branch'; // Adjust the path as n
   providedIn: 'root',
 })
 export class BranchService {
-  private baseUrl = 'http://localhost:37667/api/Branch'; // Adjust the base URL as necessary
+  private baseUrl = 'http://localhost:5247/api/Branch'; // Adjust the base URL as necessary
 
   constructor(private http: HttpClient) {}
 

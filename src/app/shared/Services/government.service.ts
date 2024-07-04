@@ -8,7 +8,7 @@ import { environment } from './environment';
 })
 export class GovernmentService {
 
-  // private baseUrl = ${'http://localhost:37667/api/Government'}; // Adjust the base URL as necessary
+  // private baseUrl = ${'http://localhost:5247/api/Government'}; // Adjust the base URL as necessary
   private baseUrl = `${environment.baseUrl}/Government`;
   constructor(private http: HttpClient) {}
 
