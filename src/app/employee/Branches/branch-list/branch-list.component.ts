@@ -19,7 +19,7 @@ export class BranchListComponent implements OnInit {
     stateId: 0,
   };
 
-  loading : boolean = false;
+  loading: boolean = false;
   constructor(private _BranchService: BranchService, private _Router: Router) {}
 
   ngOnInit(): void {
@@ -39,11 +39,7 @@ export class BranchListComponent implements OnInit {
         this.loading = false;
       },
       (error) => {
-        Swal.fire(
-          'عرض !',
-          'حدث خطأ في عرض الفروع',
-          'error'
-        );
+        Swal.fire('عرض !', 'حدث خطأ في عرض الفروع', 'error');
         console.error('Error loading branches:', error);
         this.showApiConnectionErrorAlert();
         this.loading = false;
