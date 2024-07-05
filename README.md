@@ -1,27 +1,86 @@
-# Shipping
+# Volt - Transport System Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.5.
+## Introduction
 
-## Development server
+Volt is the frontend application for the Transport Company System. It provides a user-friendly interface for administrators, employees, merchants, and agents to manage orders, accounts, branches, provinces, and cities efficiently.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Purpose
 
-## Code scaffolding
+The purpose of Volt is to offer a seamless and intuitive user experience for managing transport company operations. It aims to facilitate tasks such as order management, user management, and data visualization through an interactive dashboard.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technology Used
 
-## Build
+- **Framework**: Angular
+- **State Management**: NgRx
+- **UI Components**: Angular Material
+- **HTTP Client**: HttpClientModule
+- **Routing**: Angular Router
+- **Development Tools**: Visual Studio Code, Node.js, npm
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Users and Roles
 
-## Running unit tests
+### 1. Admin
+- Full access to all functionalities.
+- Add, edit, and delete merchants, employees, agents, branches, cities, and provinces.
+- Modify permissions for each role.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 2. Employee
+- Accept orders and assign them to agents based on the province.
+- Adjust prices based on weight and shipping rates set for the merchant.
 
-## Running end-to-end tests
+### 3. Merchant
+- Add and edit orders.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 4. Agent
+- Update the status of orders (delivered, postponed, rejected, etc.).
 
-## Further help
+## Running the System
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To run Volt locally:
+
+1. **Clone the repository:**
+
+    ```sh
+    git clone https://github.com/yourusername/volt.git
+    ```
+
+2. **Navigate to the project directory:**
+
+    ```sh
+    cd volt
+    ```
+
+3. **Install dependencies:**
+
+    ```sh
+    npm install
+    ```
+
+4. **Run the development server:**
+
+    ```sh
+    ng serve
+    ```
+
+5. **Access the application:**
+
+    Open your browser and navigate to `http://localhost:4200`.
+
+## Features
+
+- **Dashboard**: Interactive dashboard for merchants and agents to view order statuses.
+- **Order Management**: Add, edit, and update order statuses.
+- **User Management**: Manage users with different roles and permissions.
+- **Search and Filter**: Search and filter orders by various criteria such as agent name, order status, customer name, and date range.
+- **Data Management**: Manage branches, cities, provinces, and user data with search functionality.
+
+## Future Features
+
+- Adding detailed analytics and reports.
+- Multi-language support.
+- Enhanced user interface for better user experience.
+- Integration with additional third-party services.
+
+## Conclusion
+
+Volt is designed to provide a robust and intuitive interface for managing transport company operations. By leveraging Angular's powerful features and a well-organized structure, it ensures a smooth and efficient workflow for all users.
