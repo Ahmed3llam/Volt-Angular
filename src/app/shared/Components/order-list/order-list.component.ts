@@ -9,6 +9,7 @@ import { IOrder } from '../../Models/order/order';
 import Swal from 'sweetalert2';
 import { PdfGeneratorService } from '../../Services/pdf-generator.service';
 import { TranslationService } from '../../Services/translation.service';
+import { AuthService } from './../../Services/auth.service';
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
@@ -22,7 +23,7 @@ export class OrderListComponent implements OnInit ,OnDestroy{
   filteredOrders = [...this.orders];
   searchType: string = 'status'; 
   selectedOrder:any= this.filteredOrders[0];
-  canEdit: boolean = false;
+  role: string = '';
   startDate: string | null = null;
   endDate: string | null = null;
   pages = [1, 2, 3, 4];
@@ -41,12 +42,12 @@ export class OrderListComponent implements OnInit ,OnDestroy{
     private pdfGeneratorService: PdfGeneratorService,
     private orderService: OrderService,
     private deliveryService: DeliveryService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private translationService: TranslationService
   ) { }
 
   ngOnInit(): void {
-    this.checkUserRole();
     this.route.paramMap.subscribe(params => {
       const status = params.get('status');
       if (status) {
@@ -95,9 +96,9 @@ export class OrderListComponent implements OnInit ,OnDestroy{
     }
   }
 
-  checkUserRole(): void {
-    const role = localStorage.getItem('role');
-    this.canEdit = role === 'Admin' || role === 'تاجر' || role === 'موظف';
+  checkUserRole(permission:string): boolean {
+    const selected = this.authService.hasPermission(permission);
+    return selected
   }
 
   setSearchType(type: string): void {

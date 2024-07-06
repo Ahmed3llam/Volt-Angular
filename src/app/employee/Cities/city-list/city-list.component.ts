@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CityService } from '../../../shared/Services/city.service';
 import { city } from '../../../shared/Models/city';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { routes } from './../../../app.routes';
 
 @Component({
   selector: 'app-city-list',
@@ -16,7 +17,7 @@ export class CityListComponent implements OnInit {
   stateId: number = 0;
   loading : boolean = false;
 
-  constructor(private _CityService: CityService,private activatedRoute: ActivatedRoute) {}
+  constructor(private _CityService: CityService,private activatedRoute: ActivatedRoute,private router: Router) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -80,6 +81,10 @@ export class CityListComponent implements OnInit {
         this.showStatusChangeErrorAlert();
       },
     });
+  }
+
+  addCity() {
+    this.router.navigate(['/employee/city', this.stateId,0]);
   }
 
   private showDeleteSuccessAlert(): void {

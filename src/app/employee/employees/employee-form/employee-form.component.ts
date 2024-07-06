@@ -58,22 +58,23 @@ export class EmployeeFormComponent implements OnInit {
         this.loadEmployee(this.employeeId);
       }
     });
-
-
+  
     this.form = this.build.group({
       name: ['', [Validators.required]],
-      email: ['', [Validators.required , Validators.email]],
-      phone: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]],
       branchId: ['', [Validators.required]],
       role: ['', [Validators.required]],
-      password: ['', [Validators.required , Validators.minLength(8)]]
-  });
+      password: ['']
+    });
   }
+  
 
   loadEmployee(employeeId: string): void {
     this.empService.getEmployeeById(employeeId).subscribe({
       next: (employee) => {
-        this.employee = employee;
+        this.form.patchValue(employee);
+        // this.employee = employee;
       },
       error: (error) => {
         console.error('Error loading employee:', error);
@@ -90,7 +91,7 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   addEmployee(): void {
-    this.empService.addNewEmployee(this.employee).subscribe({
+    this.empService.addNewEmployee(this.form.value).subscribe({
       next: (employeeDto: IEmployeeData) => {
         Swal.fire(
           'إضافة موظف!',
@@ -115,7 +116,9 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   updateEmployee(): void {
-    this.empService.editEmployee(this.employee.id, this.employee).subscribe({
+    const emp = this.form.value;
+    emp.id=this.employeeId;
+    this.empService.editEmployee(this.employeeId, emp).subscribe({
       next: () => {
         Swal.fire(
           'تعديل موظف!',

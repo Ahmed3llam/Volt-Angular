@@ -30,15 +30,16 @@
 
         <!-- *-------------------------------------------------------- -->
 
+        <!-- Update phone input type to text -->
         <div class="form-group input-container">
           <label for="phone">رقم الهاتف</label>
-          <input class="form-control my-2" name="phone"  formControlName="phone" type="number" id="phone">
-
-          <!-- ? Validation messages -->
+          <input class="form-control my-2" name="phone" formControlName="phone" type="text" id="phone">
           <div *ngIf="form.get('phone')?.errors && form.get('phone')?.touched">
             <p *ngIf="form.get('phone')?.getError('required')" class="text-danger">يجب ادخال رقم الهاتف</p>
+            <p *ngIf="form.get('phone')?.getError('pattern')" class="text-danger">ادخل رقم هاتف صحيح كالاتى : 01224479550</p>
           </div>
         </div>
+
 
         <!-- *-------------------------------------------------------- -->
       </div>

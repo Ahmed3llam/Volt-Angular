@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 export class CityFormComponent implements OnInit {
   cityId: number | null = 0;
   city: city | null = null;
+  stateId: number | null = 0;
   GovernmentData: Government[] = [];
 
   cityData = new FormGroup({
@@ -23,7 +24,6 @@ export class CityFormComponent implements OnInit {
       Validators.required,
       Validators.minLength(3),
     ]),
-    governmentId: new FormControl(0, Validators.required),
     shippingPrice: new FormControl(0, Validators.required),
     pickUpPrice: new FormControl(0, Validators.required),
   });
@@ -37,6 +37,7 @@ export class CityFormComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this._ActivatedRoute.snapshot.paramMap.get('id');
+    this.stateId = Number(this._ActivatedRoute.snapshot.paramMap.get('state'));
     this.cityId = id !== null ? +id : null;
     this._GovernmentService.getGovernments().subscribe({
       next: (response) => {
@@ -54,7 +55,6 @@ export class CityFormComponent implements OnInit {
           this.city = response;
           this.cityData.patchValue({
             roleName: this.city.name,
-            governmentId: this.city.governmentId,
             shippingPrice: this.city.shippingPrice,
             pickUpPrice: this.city.pickUpPrice,
           });
@@ -74,7 +74,7 @@ export class CityFormComponent implements OnInit {
         id: this.cityId || 0,
         name: this.cityData.value.roleName!,
         status: true, // Assuming a default value
-        governmentId: this.cityData.value.governmentId!,
+        governmentId: this.stateId || -1,
         shippingPrice: this.cityData.value.shippingPrice!,
         pickUpPrice: this.cityData.value.pickUpPrice!,
       };
@@ -84,7 +84,7 @@ export class CityFormComponent implements OnInit {
           next: (response) => {
             console.log('City updated successfully', response);
             this.showUpdateSuccessAlert();
-            this._Router.navigate([`/employee/city/${this.cityData.value.governmentId}`]);
+            this._Router.navigate([`/employee/city/${this.stateId}`]);
           },
           error: (err) => {
             console.error('Error updating city', err);
@@ -96,7 +96,7 @@ export class CityFormComponent implements OnInit {
           next: (response) => {
             console.log('City added successfully', response);
             this.showAddSuccessAlert();
-            this._Router.navigate([`/employee/city/${response.governmentId}`]);
+            this._Router.navigate([`/employee/city/${this.stateId}`]);
           },
           error: (err) => {
             console.error('Error adding city', err);

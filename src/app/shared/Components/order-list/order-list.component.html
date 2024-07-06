@@ -49,18 +49,17 @@
             <td>{{ order.cityName }}</td>
             <td>{{ order.orderCost }}</td>
             <td>
-              <button *ngIf="canEdit" class="btn btn-link" (click)="openModal(order,'status')"><i class="bi bi-pencil-square"></i></button>
+              <button *ngIf="checkUserRole('Permissions.Orders.Edit')" class="btn btn-link" (click)="openModal(order,'status')"><i class="bi bi-pencil-square"></i></button>
               <span>{{ order.orderStatus }}</span>
             </td>
             <td>
-              <button *ngIf="canEdit" class="btn btn-link" (click)="openModal(order,'delivery')"><i class="bi bi-pencil-square"></i></button>
+              <button *ngIf="checkUserRole('Permissions.Orders.Edit')" class="btn btn-link" (click)="openModal(order,'delivery')"><i class="bi bi-pencil-square"></i></button>
               <span>{{ order.deliveryId }}</span>
             </td>
             <td class="d-flex flex-row gap-1">
-              <!-- <button class="btn btn-secondary btn-sm" (click)="printToPdf(order)"><i class="bi bi-printer"></i></button> -->
-              <button class="btn btn-secondary btn-sm" [routerLink]="['/shared/order-report', order.id]"><i class="bi bi-printer"></i></button>
-              <button class="btn btn-info btn-sm" [routerLink]="['/merchant/order', order.id]"><i class="bi bi-pencil"></i></button>
-              <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)"><i class="bi bi-trash"></i></button>
+              <button *ngIf="checkUserRole('Permissions.Orders.View')" class="btn btn-secondary btn-sm" [routerLink]="['/shared/order-report', order.id]"><i class="bi bi-printer"></i></button>
+              <button *ngIf="checkUserRole('Permissions.Orders.Edit')" class="btn btn-info btn-sm" [routerLink]="['/merchant/order', order.id]"><i class="bi bi-pencil"></i></button>
+              <button *ngIf="checkUserRole('Permissions.Orders.Delete')" class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)"><i class="bi bi-trash"></i></button>
             </td>
           </tr>
         </tbody>

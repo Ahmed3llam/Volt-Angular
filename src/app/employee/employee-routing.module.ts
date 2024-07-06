@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'branch/:id', component: BranchFormComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission:'Permissions.Branches.Create' ||'Permissions.Branches.Edit'}},
   // ----------------------------------------------------------- //
   { path: 'city/:id', component: CityListComponent ,canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Cities.View'}},
-  { path: 'city/form/:id', component: CityFormComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission:'Permissions.Cities.Create' ||'Permissions.Cities.Edit'}},
+  { path: 'city/:state/:id', component: CityFormComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission:'Permissions.Cities.Create' ||'Permissions.Cities.Edit'}},
   // ----------------------------------------------------------- //
   { path: 'state', component: StateListComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Governments.View'}},
   { path: 'state/:id', component: StateFormComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission:'Permissions.Governments.Create' ||'Permissions.Governments.Edit'}},

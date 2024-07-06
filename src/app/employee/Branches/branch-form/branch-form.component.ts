@@ -19,11 +19,11 @@ export class BranchFormComponent implements OnInit {
   GovernmentData: Government[] = [];
 
   BranchData = new FormGroup({
-    roleName: new FormControl('', [
+    name: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
     ]),
-    governmentId: new FormControl(0, Validators.required),
+    stateId: new FormControl(0, Validators.required),
   });
 
   constructor(
@@ -51,8 +51,8 @@ export class BranchFormComponent implements OnInit {
         next: (response) => {
           this.branch = response;
           this.BranchData.patchValue({
-            roleName: this.branch.name,
-            governmentId: this.branch.stateId, // Assuming stateId corresponds to governmentId
+            name: this.branch.name,
+            stateId: this.branch.stateId, // Assuming stateId corresponds to governmentId
           });
           console.log('Branch fetched successfully', this.branch);
         },
@@ -68,8 +68,8 @@ export class BranchFormComponent implements OnInit {
     if (this.BranchData.valid) {
       const branch: Branch = {
         id: this.branchId || 0,
-        name: this.BranchData.value.roleName!,
-        stateId: this.BranchData.value.governmentId!,
+        name: this.BranchData.value.name!,
+        stateId: this.BranchData.value.stateId!,
       };
 
       if (this.branchId && this.branchId !== 0) {

@@ -8,8 +8,8 @@
         <label for="reg-fn">اسم الفرع</label>
         <input
           class="form-control my-2"
-          name="roleName"
-          formControlName="roleName"
+          name="name"
+          formControlName="name"
           type="string"
           id="reg-email"
           fdprocessedid="qzw08f"
@@ -17,7 +17,7 @@
       </div>
       <div class="form-group w-50">
         <label for="reg-fn">المحافطه</label>
-        <select class="form-control my-2" formControlName="governmentId">
+        <select class="form-control my-2" formControlName="stateId">
           المحافطه
           <option *ngFor="let gov of GovernmentData" [value]="gov.id">
             {{ gov.name }}
