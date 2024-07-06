@@ -65,19 +65,64 @@ loading : boolean = false;
   }
 
 
-  deleteMerchant(id:string|undefined){
-    this.apiService.delete<any>('/Merchant/'+id).subscribe({
-      next:(res)=>{
-        console.log(res);
-      },
-      error:(err)=>{
-        console.log(err)
+
+  deleteMerchant(id:string|undefined): void {
+    Swal.fire({
+      title: 'هل انت متأكد',
+      text: 'سيتم حذف هذا التاجر',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'نعم, قم بالحذف',
+      cancelButtonText: 'لا, الغاء',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.apiService.delete<any>(`/Merchant/DeleteMerchant?id=${id}`).subscribe({
+          next: (res) => {
+            this.merchants = this.merchants.filter(p => p.id !== id);
+            Swal.fire(
+              'حذف التاجر!',
+              'تم حذف هذا التاجر.',
+              'success'
+            );
+          },
+          error: (error: any) => {
+            this.merchants = this.merchants.filter(p => p.id !== id);
+            Swal.fire(
+              'حذف التاجر!',
+              'تم حذف هذا التاجر.',
+              'success'
+            );
+          }
+        });
       }
-    })
+    });
   }
 
 
 
+
+  toggleStateStatus(merchant: IMerchantDTO): void {
+    merchant.status = !merchant.status;
+    this.apiService.put<any, any>( `/Merchant/UpdateStatus?id=${merchant.id}&status=${merchant.status}`, merchant).subscribe({
+      next: () => {
+        Swal.fire(
+          'تحديث الحالة!',
+          'تم تحديث حالة التاجر بنجاح.',
+          'success'
+        );
+      },
+      error: (error: any) => {
+        Swal.fire(
+          'تحديث الحالة!',
+          `حدث خطأ أثناء تحديث الحالة: ${error.error}`,
+          'error'
+        );
+        console.error('Error updating state status:', error);
+      }
+    });
+  }
 
 
 

@@ -38,10 +38,16 @@
           <td>{{item.branchName}}</td>
           <td>{{item.role}}</td>
           <td>
-          <label class="switch">
-            <input type="checkbox" [checked]="item.status">
-            <span class="slider"></span>
-        </label>
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckChecked"
+                [checked]="item.status"
+                (change)="toggleStateStatus(item)"
+              />
+            </div>
 
 
           </td>
