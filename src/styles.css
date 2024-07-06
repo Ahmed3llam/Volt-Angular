@@ -77,3 +77,15 @@ body { margin: 0; font-family:"Janna", "Tajawal" }
   }
   
   
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.submit:hover{
+  color: white;
+  background-color: #898787;
+}
+
+.cancel:hover{
+  color: #fff;
+  background-color: #D83520;
+}

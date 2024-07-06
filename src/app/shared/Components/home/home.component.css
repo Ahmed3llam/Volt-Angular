@@ -1,7 +1,7 @@
 .main{
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 80vw;
     height: 818px;
     background: linear-gradient(359.7deg, rgba(27, 62, 82, 0.782) 15.72%, rgba(217, 217, 217, 0) 99.86%);
     mix-blend-mode: multiply;
@@ -76,4 +76,18 @@
     flex-direction: row;
     margin-top: 250px;
     margin-right: 130px;
+}
+
+@media screen and (max-width: 600px) {
+    img{
+        display: none;
+    }
+    .btn{
+        display: none;
+    }
+  }
+  @media screen and (max-width: 1400px) and (min-width: 600px){
+    img{
+        display: none;
+    }
 }

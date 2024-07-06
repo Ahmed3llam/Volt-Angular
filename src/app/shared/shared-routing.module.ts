@@ -6,19 +6,21 @@ import { ChangePasswordComponent } from './Components/change-password/change-pas
 import { OrderListComponent } from './Components/order-list/order-list.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { OrderReportComponent } from './Components/order-report/order-report.component';
-
+import { PermissionGuard } from './guard/permission.guard';
+import { AuthGuard } from './guard/auth.guard';
 const routes: Routes = [
   { path: 'home' , component: HomeComponent},
-  { path: 'dashboard' , component: DashboardComponent},
+  { path: 'dashboard' , component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'login' , component: LogInComponent},
-  { path: 'change-password' , component: ChangePasswordComponent},
-  { path: 'order-list' , component: OrderListComponent},
-  { path: 'order-report' , component: OrderReportComponent},
+  { path: 'change-password' , component: ChangePasswordComponent,canActivate: [AuthGuard]},
+  { path: 'order-list' , component: OrderListComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Orders.View'}},
+  { path: 'order-list/:status' , component: OrderListComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Orders.View'}},
+  { path: 'order-report/:id' , component: OrderReportComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Orders.View'}},
   { path: '**' , component: HomeComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class SharedRoutingModule { }
