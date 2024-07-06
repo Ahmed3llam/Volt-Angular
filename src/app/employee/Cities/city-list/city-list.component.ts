@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CityService } from '../../../shared/Services/city.service';
 import { city } from '../../../shared/Models/city';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-city-list',
@@ -12,14 +13,15 @@ export class CityListComponent implements OnInit {
   cityData: city[] = [];
   searchterm = '';
   recordLimit: number = 5;
-
+  stateId: number = 0;
   loading : boolean = false;
 
-  constructor(private _CityService: CityService) {}
+  constructor(private _CityService: CityService,private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.loading = true;
-    this._CityService.getAllcities(1).subscribe({
+    this.stateId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    this._CityService.getAllcities(this.stateId).subscribe({
       next: (response) => {
         this.cityData = response;
         console.log(this.cityData);

@@ -3,6 +3,7 @@ import { OrderService } from './../../Services/order.service';
 import { OrderStatus } from '../../Models/order/constants';
 import { TranslationService } from '../../Services/translation.service';
 import { Router } from '@angular/router';
+import { AuthService } from './../../Services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +18,8 @@ export class DashboardComponent implements OnInit , OnDestroy{
   constructor(
     private orderService: OrderService,
     private translationService: TranslationService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
   ngOnDestroy(): void {
     if (this.OrderSubscription) {
@@ -26,7 +28,7 @@ export class DashboardComponent implements OnInit , OnDestroy{
   }
 
   ngOnInit(): void {
-    this.userRole = localStorage.getItem('role') || '';
+    this.userRole = this.authService.getUserData()?.role || '';
     this.getOrderStatusCounts();
   }
 
@@ -40,7 +42,6 @@ export class DashboardComponent implements OnInit , OnDestroy{
           this.statusCounts.push({ status, count });
         },
         error: (error: any) => {
-          console.error(`Error fetching count for ${status}`, error);
           this.statusCounts.push({ status, count: 0 });
         }
       });

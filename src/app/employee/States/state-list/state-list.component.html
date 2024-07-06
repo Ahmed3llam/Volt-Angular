@@ -44,6 +44,7 @@
         <tr>
           <th>الإسم</th>
           <th>الحالة</th>
+          <th>المدن</th>
           <th>الإعدادات</th>
         </tr>
       </thead>
@@ -61,6 +62,9 @@
                 (change)="toggleStateStatus(state)"
               />
             </div>
+          </td>
+          <td>
+            <i class="bi bi-geo-alt" (click)="viewCities(state.id)"></i>
           </td>
           <td>
             <a class="btn text-danger" (click)="viewState(state.id)">

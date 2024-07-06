@@ -7,21 +7,30 @@ import { city } from '../Models/city';
 import { Branch } from '../Models/branch';
 import { OrderStatus } from '../Models/order/constants';
 import { environment } from './environment';
+import { AuthService } from './auth.service'; 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
   private apiUrl = `${environment.baseUrl}/Order`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  private getHeaders(): HttpHeaders {
+    let token = this.authService.getUserData()?.token || '';
+    let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return headers;
+  }
 
   getAllOrders(): Observable<IorderResponse[]> {
-    return this.http.get<IorderResponse[]>(`${this.apiUrl}/Index`);
+    const headers = this.getHeaders();
+    return this.http.get<IorderResponse[]>(`${this.apiUrl}/Index`, { headers });
   }
 
   getOrdersByStatus(status: OrderStatus | null): Observable<IOrder[]> {
+    const headers = this.getHeaders();
     const statusParam = status ? encodeURIComponent(status) : '';
-    return this.http.get<{ $values: IOrder[] }>(`${this.apiUrl}/GetOrdersDependonStatus?status=${statusParam}`)
+    return this.http.get<{ $values: IOrder[] }>(`${this.apiUrl}/GetOrdersDependonStatus?status=${statusParam}`, { headers })
       .pipe(
         map(response => response.$values)
       );
@@ -34,56 +43,62 @@ export class OrderService {
   }
 
   searchOrdersByClientName(query: string): Observable<IorderResponse[]> {
-    return this.http.get<IorderResponse[]>(`${this.apiUrl}/SearchByClientName?query=${query}`);
+    const headers = this.getHeaders();
+    return this.http.get<IorderResponse[]>(`${this.apiUrl}/SearchByClientName?query=${query}`, { headers });
   }
 
   searchOrdersByDeliveryName(query: string): Observable<IorderResponse[]> {
-    return this.http.get<IorderResponse[]>(`${this.apiUrl}/SearchByDeliveryName?query=${query}`);
+    const headers = this.getHeaders();
+    return this.http.get<IorderResponse[]>(`${this.apiUrl}/SearchByDeliveryName?query=${query}`, { headers });
   }
 
   getOrderReceipt(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/OrderReceipt?id=${id}`);
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.apiUrl}/OrderReceipt?id=${id}`, { headers });
   }
 
   changeOrderDelivery(id: number, deliveryId: number): Observable<void> {
-    // return this.http.put<void>(`${this.apiUrl}/ChangeDelivery?id=${id}&deliveryId=${deliveryId}`);
-    return this.http.put<void>(`${this.apiUrl}/ChangeDelivery?id=${id}&deliveryId=${deliveryId}`, {});
+    const headers = this.getHeaders();
+    return this.http.put<void>(`${this.apiUrl}/ChangeDelivery?id=${id}&deliveryId=${deliveryId}`, {}, { headers });
   }
 
   changeOrderStatus(id: number, status: string): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/ChangeStatus?id=${id}&status=${status}`, {});
+    const headers = this.getHeaders();
+    return this.http.put<void>(`${this.apiUrl}/ChangeStatus?id=${id}&status=${status}`, {}, { headers });
   }
 
   editOrder(id: number, order: any): Observable<void> {
-    console.log(id);
-    return this.http.put<void>(`${this.apiUrl}/Edit/${id}`,order );
+    const headers = this.getHeaders();
+    return this.http.put<void>(`${this.apiUrl}/Edit/${id}`, order, { headers });
   }
 
   addOrder(order: IOrder): Observable<IorderResponse> {
-    let token = localStorage.getItem('token');
-    let options = { headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token }) };
-    return this.http.post<IorderResponse>(`${this.apiUrl}/Add`, order, options);
+    const headers = this.getHeaders();
+    return this.http.post<IorderResponse>(`${this.apiUrl}/Add`, order, { headers });
   }
 
   deleteOrder(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/Delete?id=${id}`);
+    const headers = this.getHeaders();
+    return this.http.delete<void>(`${this.apiUrl}/Delete?id=${id}`, { headers });
   }
 
   getOrderCount(): Observable<IorderResponse[]> {
-    return this.http.get<IorderResponse[]>(`${this.apiUrl}/OrderCount`);
+    const headers = this.getHeaders();
+    return this.http.get<IorderResponse[]>(`${this.apiUrl}/OrderCount`, { headers });
   }
 
   getOrdersAfterFilter(query: string): Observable<IorderResponse[]> {
-    return this.http.get<IorderResponse[]>(`${this.apiUrl}/IndexAfterFilter?query=${query}`);
+    const headers = this.getHeaders();
+    return this.http.get<IorderResponse[]>(`${this.apiUrl}/IndexAfterFilter?query=${query}`, { headers });
   }
-  
+
   getCitiesByGovernment(governmentId: number): Observable<city[]> {
-    return this.http.get<city[]>(`${this.apiUrl}/GetCitiesByGovernment?governmentId=${governmentId}`);
+    const headers = this.getHeaders();
+    return this.http.get<city[]>(`${this.apiUrl}/GetCitiesByGovernment?governmentId=${governmentId}`, { headers });
   }
 
   getBranchesByGovernment(governmentId: number): Observable<Branch[]> {
-    return this.http.get<Branch[]>(`${this.apiUrl}/GetBranchesByGovernment?government=${governmentId}`);
+    const headers = this.getHeaders();
+    return this.http.get<Branch[]>(`${this.apiUrl}/GetBranchesByGovernment?government=${governmentId}`, { headers });
   }
-
-
 }

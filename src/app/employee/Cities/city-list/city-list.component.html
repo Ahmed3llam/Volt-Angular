@@ -31,7 +31,7 @@
     </div>
     <div class="input-group mb-3" style="width: 20vw" dir="ltr">
       <span class="input-group-text" id="basic-addon2">
-        <a [routerLink]="['/employee/city/0']" class="btn add-group-button"
+        <a [routerLink]="['/employee/city/form/0']" class="btn add-group-button"
           ><i class="bi bi-plus-lg"></i> أضف مدينه</a
         >
       </span>
@@ -70,14 +70,14 @@
             </div>
           </td>
           <td>
-            <a class="btn text-danger" (click)="deleteCity(city.id)"
-              ><i class="bi bi-trash"></i
-            ></a>
             <a
               class="btn text-primary"
-              routerLink="/employee/city/{{ city.id }}"
-              ><i class="bi bi-pencil"></i
-            ></a>
+              routerLink="/employee/city/form/{{ city.id }}">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <a class="btn text-danger" (click)="deleteCity(city.id)">
+              <i class="bi bi-trash"></i>
+            </a>
           </td>
         </tr>
       </tbody>

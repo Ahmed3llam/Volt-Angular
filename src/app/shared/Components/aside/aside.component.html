@@ -5,19 +5,19 @@
             <i class="bi bi-house-door me-2 my-1"></i>
             <a class="nav-link link-dark">الصفحة الرئيسية</a>
         </li>
-        <li class="nav-item my-1">
+        <li *ngIf="isloggedin" class="nav-item my-1">
             <div class="d-flex align-items-center" [routerLink]="['/shared/dashboard']">
                 <i class="bi bi-box2 me-2"></i>
                 <a class="nav-link link-dark">طلباتي</a>
             </div>
         </li>
-        <li class="nav-item my-1">
+        <li *ngIf="role=='Admin'" class="nav-item my-1">
             <div class="d-flex align-items-center" [routerLink]="['/employee/order-list']">
                 <i class="bi bi-box-seam me-2"></i>
                 <a class="nav-link link-dark">الطلبات</a>
             </div>
         </li>
-        <li class="nav-item my-1">
+        <li *ngIf="role=='Admin'" class="nav-item my-1">
             <div class="d-flex align-items-center" (click)="toggleDropdown('usersDropdown')">
                 <i class="bi bi-people me-2"></i>
                 <a class="nav-link link-dark">المستخدمين <i class="bi bi-chevron-down ms-auto"></i></a>
@@ -37,7 +37,7 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item my-1">
+        <li *ngIf="role=='Admin'" class="nav-item my-1">
             <div class="d-flex align-items-center" (click)="toggleDropdown('regionsDropdown')">
                 <i class="bi bi-geo-alt me-2"></i>
                 <a class="nav-link link-dark">المناطق <i class="bi bi-chevron-down ms-auto"></i></a>
@@ -53,7 +53,7 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item my-1">
+        <li *ngIf="role=='Admin'" class="nav-item my-1">
             <div class="d-flex align-items-center" (click)="toggleDropdown('settingsDropdown')">
                 <i class="bi bi-gear me-2"></i>
                 <a class="nav-link link-dark">الإعدادات <i class="bi bi-chevron-down ms-auto"></i></a>
@@ -69,10 +69,10 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item mt-5">
+        <li *ngIf="isloggedin" class="nav-item mt-5">
             <div class="d-flex align-items-center">
                 <i class="bi bi-person-circle me-2"></i>
-                <a class="nav-link link-dark" (click)="toggleDropdown('userSettingsDropdown')">{{userName}} <i class="bi bi-chevron-down ms-auto"></i></a>
+                <a class="nav-link link-dark" (click)="toggleDropdown('userSettingsDropdown')">{{user}} <i class="bi bi-chevron-down ms-auto"></i></a>
             </div>
             <ul *ngIf="dropdowns.userSettingsDropdown" class="dropdown-menu show text-end">
                 <li class="dropdown-item d-flex align-items-center" [routerLink]="['/employee/change-password']">

@@ -1,68 +1,52 @@
-import { Injectable ,OnInit} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from './environment';
 import { IMerchantDTO } from '../Models/IMerchant';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MerchantService implements OnInit {
+export class MerchantService {
   baseUrl: string = `${environment.baseUrl}/Merchant`;
-  header_object: HttpHeaders|undefined ;
-  token:string =  '';
-  constructor(private http: HttpClient,private router:Router) {
+
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
+
+  private getHeaders(): HttpHeaders {
+    let token = this.authService.getUserData()?.token || '';
+    let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return headers;
   }
 
   getAllMerchants(): Observable<IMerchantDTO[]> {
-    return this.http.get<IMerchantDTO[]>(`${this.baseUrl}`);
+    const headers = this.getHeaders();
+    return this.http.get<IMerchantDTO[]>(`${this.baseUrl}`, { headers });
   }
 
   addMerchant(newMerchant: IMerchantDTO): Observable<IMerchantDTO> {
-    return this.http.post<IMerchantDTO>(`${this.baseUrl}/AddMerchant`, newMerchant);
+    const headers = this.getHeaders();
+    return this.http.post<IMerchantDTO>(`${this.baseUrl}/AddMerchant`, newMerchant, { headers });
   }
 
   getMerchantById(id: string): Observable<IMerchantDTO> {
-    return this.http.get<IMerchantDTO>(`${this.baseUrl}/GetMerchantById/${id}`);
+    const headers = this.getHeaders();
+    return this.http.get<IMerchantDTO>(`${this.baseUrl}/GetMerchantById/${id}`, { headers });
   }
 
   updateMerchant(newData: IMerchantDTO): Observable<IMerchantDTO> {
-    return this.http.put<IMerchantDTO>(`${this.baseUrl}/UpdateMerchant`, newData);
+    const headers = this.getHeaders();
+    return this.http.put<IMerchantDTO>(`${this.baseUrl}/UpdateMerchant`, newData, { headers });
   }
 
   updateStatus(id: string, status: boolean): Observable<IMerchantDTO> {
-    return this.http.put<IMerchantDTO>(`${this.baseUrl}/UpdateStatus`, { id, status });
+    const headers = this.getHeaders();
+    return this.http.put<IMerchantDTO>(`${this.baseUrl}/UpdateStatus`, { id, status }, { headers });
   }
 
   deleteMerchant(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/DeleteMerchant/${id}`);
+    const headers = this.getHeaders();
+    return this.http.delete<void>(`${this.baseUrl}/DeleteMerchant/${id}`, { headers });
   }
-
-  ngOnInit(): void {
-      this.token=localStorage.getItem('token') || '';
-   this.header_object = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-
-   console.log(this.header_object);
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

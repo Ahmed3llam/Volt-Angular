@@ -1,25 +1,33 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Government } from '../Models/government';
 import { environment } from './environment';
+import { AuthService } from './auth.service';
+
 @Injectable({
   providedIn: 'root',
 })
 export class GovernmentService {
 
-  // private baseUrl = ${'http://localhost:5247/api/Government'}; // Adjust the base URL as necessary
   private baseUrl = `${environment.baseUrl}/Government`;
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient,private authService:AuthService) {}
+
+  private getHeaders(): HttpHeaders {
+    const token = this.authService.getUserData()?.token || '';
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
 
   getGovernments(): Observable<Government[]> {
     return this.http
-      .get<{ $id: string; $values: Government[] }>(this.baseUrl)
+      .get<{ $id: string; $values: Government[] }>(this.baseUrl, { headers: this.getHeaders() })
       .pipe(
-        map((response) => response.$values) // Extract the values array
+        map((response) => response.$values)
       );
   }
+
   getGovernmentById(id: number): Observable<Government> {
-    return this.http.get<Government>(`${this.baseUrl}/${id}`);
+    return this.http.get<Government>(`${this.baseUrl}/${id}`, { headers: this.getHeaders() });
   }
 }

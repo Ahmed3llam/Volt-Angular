@@ -16,32 +16,34 @@ import { UpdatePermissionComponent } from './Permissions/update-permission/updat
 import { AddPermissionComponent } from './Permissions/add-permission/add-permission.component';
 import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
 import { EmployeeFormComponent } from './employees/employee-form/employee-form.component';
+import { AuthGuard } from '../shared/guard/auth.guard';
+import { PermissionGuard } from '../shared/guard/permission.guard';
 
 const routes: Routes = [
-  { path: 'branch', component: BranchListComponent },
-  { path: 'branch/:id', component: BranchFormComponent },
+  { path: 'branch', component: BranchListComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Branches.View'}},
+  { path: 'branch/:id', component: BranchFormComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission:'Permissions.Branches.Create' ||'Permissions.Branches.Edit'}},
   // ----------------------------------------------------------- //
-  { path: 'city', component: CityListComponent },
-  { path: 'city/:id', component: CityFormComponent },
+  { path: 'city/:id', component: CityListComponent ,canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Cities.View'}},
+  { path: 'city/form/:id', component: CityFormComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission:'Permissions.Cities.Create' ||'Permissions.Cities.Edit'}},
   // ----------------------------------------------------------- //
-  { path: 'state', component: StateListComponent },
-  { path: 'state/:id', component: StateFormComponent },
+  { path: 'state', component: StateListComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Governments.View'}},
+  { path: 'state/:id', component: StateFormComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission:'Permissions.Governments.Create' ||'Permissions.Governments.Edit'}},
   // ----------------------------------------------------------- //
-  { path: 'delivery', component: DeliveryListComponent },
-  { path: 'delivery/:id', component: DeliveryFormComponent },
+  { path: 'delivery', component: DeliveryListComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Deliveries.View'}},
+  { path: 'delivery/:id', component: DeliveryFormComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission:'Permissions.Deliveries.Create' ||'Permissions.Deliveries.Edit'}},
   // ----------------------------------------------------------- //
-  { path: 'merchant', component: MerchantListComponent },
-  { path: 'merchant/:id', component: MerchantFormComponent },
+  { path: 'merchant', component: MerchantListComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Merchants.View'}},
+  { path: 'merchant/:id', component: MerchantFormComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission:'Permissions.Merchants.Create' ||'Permissions.Merchants.Edit'}},
   // ----------------------------------------------------------- //
-  { path: 'employee', component: EmployeeListComponent },
-  { path: 'employee/new', component: EmployeeFormComponent },
-  { path: 'employee/:id', component: EmployeeFormComponent },
+  { path: 'employee', component: EmployeeListComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Employees.View'}},
+  { path: 'employee/new', component: EmployeeFormComponent ,canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Employees.Create'}},
+  { path: 'employee/:id', component: EmployeeFormComponent ,canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Employees.Edit'||'Permissions.Employees.Create'}},
   // ----------------------------------------------------------- //
-  { path: 'permission', component: PermissionListComponent },
-  { path: 'permission/:id', component: UpdatePermissionComponent },
-  { path: 'permission/form/:id', component: AddPermissionComponent },
+  { path: 'permission', component: PermissionListComponent ,canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Controls.View'}},
+  { path: 'permission/:id', component: UpdatePermissionComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Controls.Edit'}},
+  { path: 'permission/form/:id', component: AddPermissionComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.Controls.Create'||'Permissions.Controls.Edit'}},
   // ----------------------------------------------------------- //
-  { path: 'weight', component: WightSettingComponent },
+  { path: 'weight', component: WightSettingComponent, canActivate: [AuthGuard,PermissionGuard], data: {permission: 'Permissions.WeightSettings.Edit'||'Permissions.WeightSettings.View'}},
 ];
 
 @NgModule({

@@ -84,7 +84,7 @@ export class CityFormComponent implements OnInit {
           next: (response) => {
             console.log('City updated successfully', response);
             this.showUpdateSuccessAlert();
-            this._Router.navigate(['/employee/city']);
+            this._Router.navigate([`/employee/city/${this.cityData.value.governmentId}`]);
           },
           error: (err) => {
             console.error('Error updating city', err);
@@ -96,7 +96,7 @@ export class CityFormComponent implements OnInit {
           next: (response) => {
             console.log('City added successfully', response);
             this.showAddSuccessAlert();
-            this._Router.navigate(['/employee/city']);
+            this._Router.navigate([`/employee/city/${response.governmentId}`]);
           },
           error: (err) => {
             console.error('Error adding city', err);

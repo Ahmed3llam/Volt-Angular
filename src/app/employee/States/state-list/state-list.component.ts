@@ -99,6 +99,9 @@ export class StateListComponent implements OnInit {
     });
   }
 
+  viewCities(stateId: number): void {
+    this.router.navigate(['/employee/city', stateId]);
+  }
 
   viewState(stateId: number): void {
     this.router.navigate(['/employee/state', stateId]);
