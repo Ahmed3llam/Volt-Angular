@@ -72,7 +72,7 @@
           <td>
             <a
               class="btn text-primary"
-              routerLink="/employee/city/form/{{ city.id }}">
+              routerLink="/employee/city/{{ stateId }}/{{ city.id }}">
               <i class="bi bi-pencil"></i>
             </a>
             <a class="btn text-danger" (click)="deleteCity(city.id)">

@@ -33,6 +33,7 @@ export class OrderListComponent implements OnInit ,OnDestroy{
   deliveryForm: FormGroup = new FormGroup({
     delegateName: new FormControl(this.selectedOrder.delegateName,{validators: [Validators.required]}),
   });
+  statusParam:string='';
   orderSubscription: any;
   deliverySubscription: any;
   statusSubscription: any;
@@ -48,10 +49,11 @@ export class OrderListComponent implements OnInit ,OnDestroy{
   ) { }
 
   ngOnInit(): void {
+    this.getRole();
     this.route.paramMap.subscribe(params => {
-      const status = params.get('status');
-      if (status) {
-        let translatedStatus = this.translationService.translateToArabic(status);
+      this.statusParam = params.get('status')??'';
+      if (this.statusParam) {
+        let translatedStatus = this.translationService.translateToArabic(this.statusParam);
         this.loadFilteredOrders(translatedStatus);
       } else {
         this.loadOrders();
@@ -99,6 +101,10 @@ export class OrderListComponent implements OnInit ,OnDestroy{
   checkUserRole(permission:string): boolean {
     const selected = this.authService.hasPermission(permission);
     return selected
+  }
+
+  getRole(){
+    this.role = this.authService.getUserData()?.role || '';
   }
 
   setSearchType(type: string): void {
@@ -175,7 +181,12 @@ export class OrderListComponent implements OnInit ,OnDestroy{
       const newStatus = this.statusForm.controls['status'].value;
       this.statusSubscription = this.orderService.changeOrderStatus(this.selectedOrder.id, newStatus).subscribe({
         next: (data: any) => {
-          this.loadOrders();
+          if (this.statusParam) {
+            let translatedStatus = this.translationService.translateToArabic(this.statusParam);
+            this.loadFilteredOrders(translatedStatus);
+          } else {
+            this.loadOrders();
+          }
           modalElement = document.getElementById('UpdateStatus');
           if (modalElement) {
             modalElement?.classList.remove('fade', 'show');
@@ -193,7 +204,12 @@ export class OrderListComponent implements OnInit ,OnDestroy{
       this.selectedOrder.delegateName = newDelegate;
       this.deliveryDeligateSubscription = this.orderService.changeOrderDelivery(this.selectedOrder.id,newDelegate ).subscribe({
         next: (data: any) => {
-          this.loadOrders();
+          if (this.statusParam) {
+            let translatedStatus = this.translationService.translateToArabic(this.statusParam);
+            this.loadFilteredOrders(translatedStatus);
+          } else {
+            this.loadOrders();
+          }
           modalElement = document.getElementById('UpdateDelivery');
           if (modalElement) {
             modalElement?.classList.remove('fade', 'show');

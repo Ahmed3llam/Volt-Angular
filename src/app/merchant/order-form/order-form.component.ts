@@ -29,6 +29,7 @@ export class OrderFormComponent implements OnInit ,OnDestroy{
   orderTypes = Object.keys(OrderType).filter(val => isNaN(Number(val)));
   isEditMode: boolean = false;
   orderId: number = 0;
+  merchantId: number = 0;
   Products:IOrderProduct[] = [{}] as IOrderProduct[];
   orderSubscription: any;
   citySubscription: any;
@@ -90,21 +91,22 @@ export class OrderFormComponent implements OnInit ,OnDestroy{
   loadOrderData(id: number): void {
     this.orderSubscription = this.orderService.getOrderReceipt(id).subscribe({
       next: (order: IOrder) => {
-      this.orderForm.patchValue({
-        ...order,
-        orderProducts: []
-      });
-      this.orderProducts.clear();
-      this.Products = Array.isArray(order.orderProducts.$values) ? order.orderProducts.$values : [];
-      this.Products.forEach((product: IOrderProduct) => {
-        this.orderProducts.push(
-          new FormGroup({
-            productName: new FormControl(product.productName),
-            productQuantity: new FormControl(product.productQuantity),
-            weight: new FormControl(product.weight)
-          })
-        );
-      });
+         this.merchantId = order.merchantId??0;
+        this.orderForm.patchValue({
+          ...order,
+          orderProducts: []
+        });
+        this.orderProducts.clear();
+        this.Products = Array.isArray(order.orderProducts.$values) ? order.orderProducts.$values : [];
+        this.Products.forEach((product: IOrderProduct) => {
+          this.orderProducts.push(
+            new FormGroup({
+              productName: new FormControl(product.productName),
+              productQuantity: new FormControl(product.productQuantity),
+              weight: new FormControl(product.weight)
+            })
+          );
+        });
       },
       error: err => {
         console.log(err);
@@ -186,6 +188,7 @@ export class OrderFormComponent implements OnInit ,OnDestroy{
       };
   
       if (this.isEditMode) {
+        formData.merchantId=this.merchantId;
         this.actionSubscription = this.orderService.editOrder(this.orderId, formData).subscribe({
           next: (data: any) => {
             Swal.fire('نجاح!', 'تم تعديل الطلب بنجاح', 'success');

@@ -80,6 +80,7 @@ export class CityFormComponent implements OnInit {
       };
 
       if (this.cityId && this.cityId !== 0) {
+        console.log(city, this.cityId,this.stateId);
         this._cityService.updatecityById(this.cityId, city).subscribe({
           next: (response) => {
             console.log('City updated successfully', response);
