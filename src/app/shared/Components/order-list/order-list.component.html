@@ -35,7 +35,7 @@
             <th>بيانات العميل</th>
             <th>المحافظة</th>
             <th>المدينة</th>
-            <th>تكلفة الطلب</th>
+            <th>اجمالي التكلفة</th>
             <th>الحالة</th>
             <th>المندوب</th>
             <th>الإعدادات</th>
@@ -47,13 +47,13 @@
             <td>{{ order.clientName}} {{order.clientPhoneNumber1}}</td>
             <td>{{ order.stateName }}</td> 
             <td>{{ order.cityName }}</td>
-            <td>{{ order.orderCost }}</td>
+            <td>{{ order.totalCost }}</td>
             <td>
-              <button *ngIf="checkUserRole('Permissions.Orders.Edit')" class="btn btn-link" (click)="openModal(order,'status')"><i class="bi bi-pencil-square"></i></button>
+              <button *ngIf="checkUserRole('Permissions.Orders.Edit') && (role === 'الموظفين' || role === 'المناديب')" class="btn btn-link" (click)="openModal(order,'status')"><i class="bi bi-pencil-square"></i></button>
               <span>{{ order.orderStatus }}</span>
             </td>
             <td>
-              <button *ngIf="checkUserRole('Permissions.Orders.Edit')" class="btn btn-link" (click)="openModal(order,'delivery')"><i class="bi bi-pencil-square"></i></button>
+              <button *ngIf="checkUserRole('Permissions.Orders.Edit') && role === 'الموظفين'" class="btn btn-link" (click)="openModal(order,'delivery')"><i class="bi bi-pencil-square"></i></button>
               <span>{{ order.deliveryId }}</span>
             </td>
             <td class="d-flex flex-row gap-1">

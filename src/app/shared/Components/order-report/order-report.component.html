@@ -10,6 +10,8 @@
     <p><strong>المحافظة:</strong> {{ order.stateName }}</p>
     <p><strong>المدينة:</strong> {{ order.cityName }}</p>
     <p><strong>تكلفة الطلب:</strong> {{ order.orderCost }}</p>
+    <p><strong>تكلفة الشحن:</strong> {{ order.shippingCost }}</p>
+    <p><strong>اجمالي الطلب: </strong> {{ order.totalCost }}</p>
     <p><strong>حالة الطلب:</strong> {{ order.orderStatus }}</p>
     <p><strong>المندوب:</strong> {{ order.deliveryId }}</p>
     
@@ -30,7 +32,7 @@
         </tr>
       </tbody>
     </table>
-    <button class="btn btn-secondary btn-sm" [routerLink]="['/employee/order-list']">عودة الى الخلف</button>
+    <button class="btn btn-secondary btn-sm" [routerLink]="['/employee/dashboard']">عودة الى الخلف</button>
   </div>
   
   
