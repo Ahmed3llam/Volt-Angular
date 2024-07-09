@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="header">
-      <div class="input-group mb-3" dir="ltr">
+    <div class="header d-flex flex-column flex-md-row gap-3">
+      <div class="input-group mb-3 w-100" dir="ltr">
         <input #searchInput type="text" class="form-control text-end" placeholder="بحث" aria-describedby="basic-addon2">
         <button type="button" class="btn btn-outline-secondary" (click)="onSearch(searchInput.value)">
           <i class="bi bi-search"></i>
@@ -14,17 +14,17 @@
           <li><a class="dropdown-item" (click)="setSearchType('clientName')">اسم العميل</a></li>
         </ul>
       </div>
-      <div class="input-group mb-3" dir="ltr">
+      <div class="input-group mb-3 w-100" dir="ltr">
         <input type="date" class="form-control" [(ngModel)]="startDate" placeholder="من">
         <input type="date" class="form-control" [(ngModel)]="endDate" placeholder="إلى">
         <button type="button" class="btn btn-outline-secondary" (click)="filterByDateRange()">
             <i class="bi bi-filter"></i>
         </button>
     </div>
-      <div class="input-group mb-3" style="width: 10vw;" dir="ltr">
+      <!-- <div class="input-group mb-3" style="width: 100%;" dir="ltr">
         <input dir="rtl" type="number" class="form-control text-end" placeholder="9" min="1" max="20" step="5" aria-describedby="basic-addon2">
         <span class="input-group-text" id="basic-addon2">ريكورد</span>
-      </div>
+      </div> -->
     </div>
   
     <div class="table-responsive text-center" #orderTable>
@@ -66,7 +66,7 @@
       </table>
     </div>
   
-    <div class="input-group mb-3 justify-content-end" style="width: 20vw;" dir="ltr">
+    <!-- <div class="input-group mb-3 justify-content-end w-100" dir="ltr">
       <span class="input-group-text" id="basic-addon2">
         <button class="btn add-group-button">1</button>
         <button class="btn">2</button>
@@ -74,7 +74,7 @@
         <button class="btn">4</button>
         <button class="btn">></button>
       </span>
-    </div>
+    </div> -->
 
     <div class="modal fade" id="UpdateStatus" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
       <div class="modal-dialog">

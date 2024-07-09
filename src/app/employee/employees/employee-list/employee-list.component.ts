@@ -115,4 +115,13 @@ export class EmployeeListComponent implements OnInit {
   editEmployee(employeeId: string): void {
     this.router.navigate(['/employee/employee', employeeId]);
   }
+  onSearch(searchValue: string): void {
+    if (searchValue.trim() === '') {
+      this.loadEmployees();
+    } else {
+      this.employeesData = this.employeesData.filter(employee =>
+        employee.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
+  }
 }

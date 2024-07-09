@@ -53,18 +53,12 @@ loading : boolean = false;
 
 
   onSearch(searchText:string){
-    this.apiService.get<any>('/Merchant/'+searchText).subscribe({
-      next:(res)=>{
-        console.log(res);
-       // this.merchants=res
-      },
-      error:(err)=>{
-        console.log(err)
-      }
-    })
+    if (!searchText.trim()) {
+      this.ngOnInit();
+      return;
+    }
+    this.merchants = this.merchants.filter(merchant => merchant.name.toLowerCase().includes(searchText.toLowerCase()));
   }
-
-
 
   deleteMerchant(id:string|undefined): void {
     Swal.fire({

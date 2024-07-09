@@ -91,6 +91,7 @@ export class OrderFormComponent implements OnInit ,OnDestroy{
   loadOrderData(id: number): void {
     this.orderSubscription = this.orderService.getOrderReceipt(id).subscribe({
       next: (order: IOrder) => {
+        console.log(order);
          this.merchantId = order.merchantId??0;
         this.orderForm.patchValue({
           ...order,
