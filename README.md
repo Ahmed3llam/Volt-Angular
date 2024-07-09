@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Volt is the frontend application for the Transport Company System. It provides a user-friendly interface for administrators, employees, merchants, and agents to manage orders, accounts, branches, provinces, and cities efficiently.
+Volt is the front-end application for the Transport Company System. It provides a user-friendly interface for administrators, employees, merchants, and agents to manage orders, accounts, branches, provinces, and cities efficiently.
 
 ## Purpose
 
@@ -11,7 +11,6 @@ The purpose of Volt is to offer a seamless and intuitive user experience for man
 ## Technology Used
 
 - **Framework**: Angular
-- **State Management**: NgRx
 - **UI Components**: Angular Material
 - **HTTP Client**: HttpClientModule
 - **Routing**: Angular Router
@@ -41,7 +40,7 @@ To run Volt locally:
 1. **Clone the repository:**
 
     ```sh
-    git clone https://github.com/yourusername/volt.git
+    https://github.com/Ahmed3llam/Volt-Angular.git
     ```
 
 2. **Navigate to the project directory:**
@@ -59,7 +58,7 @@ To run Volt locally:
 4. **Run the development server:**
 
     ```sh
-    ng serve
+    ng serve -o
     ```
 
 5. **Access the application:**
